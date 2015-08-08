@@ -12,7 +12,7 @@ describe("bespoke-multimedia", function() {
       for (var i = 0; i < 4; i++) {
         var section = document.createElement('section');
         section.id = 'slide-' + (i + 1)
-        if (i == 1) {
+        if (i < 2) {
           var video = document.createElement('video');
           video.setAttribute('src', 'asset/sample.webm');
           video.setAttribute('loop', 'true');
@@ -58,17 +58,25 @@ describe("bespoke-multimedia", function() {
       deck.slide(0);
     });
 
+    it("should play video on first slide", function() {
+      var video = deck.parent.querySelectorAll('video')[0];
+      expect(video.paused).toBe(false);
+    });
+
     it("should play video when slide is activated", function() {
-      var video = deck.parent.querySelector('video');
+      var video = deck.parent.querySelectorAll('video')[1];
+      expect(video.paused).toBe(true);
       deck.next();
       expect(video.paused).toBe(false);
     });
 
     it("should pause video when slide is deactivated", function() {
-      var video = deck.parent.querySelector('video');
       deck.next();
       deck.next();
-      expect(video.paused).toBe(true);
+      var video0 = deck.parent.querySelectorAll('video')[0];
+      expect(video0.paused).toBe(true);
+      var video1 = deck.parent.querySelectorAll('video')[1];
+      expect(video1.paused).toBe(true);
     });
 
     // NOTE this doesn't really test anything, other than looking for the SVG doesn't break the plugin
