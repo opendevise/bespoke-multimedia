@@ -3,7 +3,7 @@ Dan Allen
 :idprefix:
 :idseparator: -
 
-Toggles playback of multimedia and SVG animations on a slide in a http://markdalgleish.com/projects/bespoke.js[bespoke.js] presentation.
+Toggles playback of multimedia and SVG animations on the active slide in a http://markdalgleish.com/projects/bespoke.js[bespoke.js] presentation.
 
 == Download
 

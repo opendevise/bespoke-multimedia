@@ -1,7 +1,7 @@
 {
   "name": "bespoke-multimedia",
   "version": "1.0.0",
-  "description": "Toggles playback of multimedia and SVG animations on a slide.",
+  "description": "Toggles playback of multimedia and SVG animations on the active slide.",
   "homepage": "https://github.com/opendevise/bespoke-multimedia",
   "bugs": "https://github.com/opendevise/bespoke-multimedia/issues",
   "author": {
