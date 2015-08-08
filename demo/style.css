@@ -43,8 +43,8 @@ section.bespoke-slide {
   display: block;
 }
 
-.bespoke-slide.video {
-  padding: 0 0 1em 0;
+.bespoke-slide.media {
+  padding: 0;
 }
 
 p.credit {
