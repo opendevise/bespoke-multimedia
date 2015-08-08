@@ -41,8 +41,8 @@ module.exports = function() {
     },
     animateSVGs = function(slide) {
       toArray(slide.querySelectorAll('object')).forEach(function(obj) {
-        if (obj.getAttribute('type') == 'image/svg+xml' && obj.contentDocument != null &&
-            obj.contentDocument.querySelector('animate') != null) {
+        if (obj.getAttribute('type') === 'image/svg+xml' && obj.contentDocument &&
+            obj.contentDocument.querySelector('animate')) {
           animateSVG(obj);
         }
       });
