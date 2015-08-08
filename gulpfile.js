@@ -34,7 +34,8 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('instrument', ['clean'], function() {
+//gulp.task('instrument', ['clean'], function() {
+gulp.task('instrument', function() {
   return gulp.src('lib/**/*.js')
     .pipe(map(function(code, filename) {
       var instrumenter = new istanbul.Instrumenter(),
