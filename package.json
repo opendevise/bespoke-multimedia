@@ -1,9 +1,9 @@
 {
   "name": "bespoke-multimedia",
   "version": "1.0.0",
-  "description": "Toggles multimedia playback on a slide.",
-  "homepage": "https://github.com/mojavelinux/bespoke-multimedia",
-  "bugs": "https://github.com/mojavelinux/bespoke-multimedia/issues",
+  "description": "Toggles playback of multimedia and SVG animations on a slide.",
+  "homepage": "https://github.com/opendevise/bespoke-multimedia",
+  "bugs": "https://github.com/opendevise/bespoke-multimedia/issues",
   "author": {
     "name": "Dan Allen",
     "url": "https://github.com/mojavelinux"
@@ -11,7 +11,7 @@
   "main": "./lib/bespoke-multimedia.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mojavelinux/bespoke-multimedia.git"
+    "url": "git://github.com/opendevise/bespoke-multimedia.git"
   },
   "scripts": {
     "test": "gulp",
