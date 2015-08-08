@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <title>bespoke-multimedia demo</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+
+    <h1>bespoke-multimedia</h1>
+
+    <article>
+      <section>
+        <p>The video on the next slide will automatically play when the slide is activated.</p>
+        <p>When the slide is deactivated, the video will be paused.</p>
+      </section>
+      <section>
+        <video src="shapes.mp4" preload="auto" loop="true"></video> 
+        Video by Brad Zimmerman, CC BY 3.0 - <a href="https://vimeo.com/18270107">https://vimeo.com/18270107</a>
+      </section>
+      <section>
+        <p>Last Slide</p>
+      </section>
+    </article>
+
+    <script src="../node_modules/bespoke/dist/bespoke.js"></script>
+    <script src="../node_modules/bespoke-keys/dist/bespoke-keys.js"></script>
+    <script src="../node_modules/bespoke-touch/dist/bespoke-touch.js"></script>
+    <script src="../node_modules/bespoke-classes/dist/bespoke-classes.js"></script>
+    <script src="../dist/bespoke-multimedia.js"></script>
+    <script src="demo.js"></script>
+  </body>
+</html>
