@@ -1,0 +1,55 @@
+= bespoke-multimedia
+Dan Allen
+:idprefix:
+:idseparator: -
+
+Toggles playback of multimedia and SVG animations on a slide.
+
+== Download
+
+Download the https://raw.github.com/mojavelinux/bespoke-multimedia/master/dist/bespoke-multimedia.min.js[production version] or the https://raw.github.com/mojavelinux/bespoke-multimedia/master/dist/bespoke-multimedia.js[development version], or use a <<package-managers,package manager>>.
+
+== Usage
+
+This plugin is shipped in a https://github.com/umdjs/umd[UMD format], meaning that it is available as a CommonJS/AMD module or browser global.
+
+For example, when using CommonJS modules:
+
+```js
+var bespoke = require('bespoke'),
+  multimedia = require('bespoke-multimedia');
+
+bespoke.from('#presentation', [
+  multimedia()
+]);
+```
+
+When using browser globals:
+
+```js
+bespoke.from('#presentation', [
+  bespoke.plugins.multimedia()
+]);
+```
+
+== Package managers
+
+=== npm
+
+```bash
+$ npm install bespoke-multimedia
+```
+
+=== Bower
+
+```bash
+$ bower install bespoke-multimedia
+```
+
+== Credits
+
+This plugin was built with https://github.com/markdalgleish/generator-bespokeplugin[generator-bespokeplugin].
+
+== License
+
+http://en.wikipedia.org/wiki/MIT_License[MIT License]
