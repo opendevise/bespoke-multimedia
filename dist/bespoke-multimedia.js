@@ -41,16 +41,15 @@ module.exports = function() {
       //obj.setAttribute('data', obj.getAttribute('data'));
     },
     restartSvgAnimations = function(slide) {
-      toArray(slide.querySelectorAll('object')).forEach(function(obj) {
-        if (obj.getAttribute('type') === 'image/svg+xml') {
-          restartSvgAnimation(obj);
-        }
-        // contentDocument may not be accessible for file URLs, so this optimization may disable functionality
-        //if (obj.getAttribute('type') === 'image/svg+xml' && obj.contentDocument &&
-        //    obj.contentDocument.querySelector('animate')) {
-        //  restartSvgAnimation(obj);
-        //}
-      });
+      // QUESTION should we require an "animated" class on the object element?
+      toArray(slide.querySelectorAll('object[type="image/svg+xml"]')).forEach(restartSvgAnimation);
+      // NOTE contentDocument may not be accessible for file URLs, so this optimization may disable functionality
+      //toArray(slide.querySelectorAll('object')).forEach(function(obj) {
+      //  if (obj.getAttribute('type') === 'image/svg+xml' && obj.contentDocument &&
+      //      obj.contentDocument.querySelector('animate')) {
+      //    restartSvgAnimation(obj);
+      //  }
+      //});
     },
     // force object to reload (restarts GIF animation)
     restartGifAnimation = function(img) {
