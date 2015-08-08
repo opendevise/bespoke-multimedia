@@ -34,30 +34,38 @@ module.exports = function() {
     pauseVideos = function(slide) {
       findVideos(slide).forEach(pauseNode);
     },
-    // force object to reload (restarts SVG animations)
+    // force object to reload (restarts SVG animations); doesn't work reliably in Firefox
     restartSvgAnimation = function(obj) {
-      obj.data = obj.data;
+      // NOTE obj.data resolves to the qualified URL; we just want the original value
+      obj.data = obj.getAttribute('data');
       //obj.setAttribute('data', obj.getAttribute('data'));
     },
     restartSvgAnimations = function(slide) {
       toArray(slide.querySelectorAll('object')).forEach(function(obj) {
-        if (obj.getAttribute('type') === 'image/svg+xml' && obj.contentDocument &&
-            obj.contentDocument.querySelector('animate')) {
+        if (obj.getAttribute('type') === 'image/svg+xml') {
           restartSvgAnimation(obj);
         }
+        // contentDocument may not be accessible for file URLs, so this optimization may disable functionality
+        //if (obj.getAttribute('type') === 'image/svg+xml' && obj.contentDocument &&
+        //    obj.contentDocument.querySelector('animate')) {
+        //  restartSvgAnimation(obj);
+        //}
       });
     },
     // force object to reload (restarts GIF animation)
-    restartGifAnimation = function(obj) {
-      obj.src = obj.src;
-      //obj.setAttribute('src', obj.getAttribute('src'));
+    restartGifAnimation = function(img) {
+      // NOTE obj.src resolves to the qualified URL; we just want the original value
+      img.src = img.getAttribute('src');
+      //img.setAttribute('src', img.getAttribute('src'));
     },
     restartGifAnimations = function(slide) {
-      toArray(slide.querySelectorAll('img')).forEach(function(obj) {
-        if (/\.gif/i.test(obj.src)) {
-          restartGifAnimation(obj);
-        }
-      });
+      toArray(slide.querySelectorAll('img[src*=".gif"]')).forEach(restartGifAnimation);
+      // NOTE use the following if we want case insensitive matching
+      //toArray(slide.querySelectorAll('img')).forEach(function(img) {
+      //  if (/\.gif/i.test(img.src)) {
+      //    restartGifAnimation(img);
+      //  }
+      //});
     },
     restartAnimations = function(slide) {
       restartSvgAnimations(slide);
