@@ -1,6 +1,5 @@
 {
   "name": "bespoke-multimedia",
-  "version": "1.0.0",
   "main": "./dist/bespoke-multimedia.js",
   "ignore": [
     "**/.*"
