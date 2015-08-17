@@ -1,13 +1,12 @@
 <!doctype html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>bespoke-multimedia demo</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-
-    <article>
+    <article class="presentation">
       <section>
         <p>The video on the next slide will play automatically when the slide is activated.</p>
         <p>When the slide is deactivated, the video will be paused.</p>
@@ -16,7 +15,7 @@
         <video src="shapes.mp4" preload="auto" loop="true"></video> 
         <p class="credit">
           Video by Brad Zimmerman, CC BY 3.0 -
-          <a href="https://vimeo.com/18270107">https://vimeo.com/18270107</a>
+          <a href="https://vimeo.com/18270184">https://vimeo.com/18270184</a>
         </p>
       </section>
       <section>
@@ -26,17 +25,16 @@
         <object data="orange-circle.svg" type="image/svg+xml"></object>
       </section>
       <section class="media">
-        <img src="http://i.giphy.com/90F8aUepslB84.gif" style="width: 100%"/>
+        <img src="http://i.giphy.com/90F8aUepslB84.gif" style="width: 100%">
       </section>
       <section>
         <p>Last Slide</p>
       </section>
     </article>
-
     <script src="../node_modules/bespoke/dist/bespoke.js"></script>
+    <script src="../node_modules/bespoke-classes/dist/bespoke-classes.js"></script>
     <script src="../node_modules/bespoke-keys/dist/bespoke-keys.js"></script>
     <script src="../node_modules/bespoke-touch/dist/bespoke-touch.js"></script>
-    <script src="../node_modules/bespoke-classes/dist/bespoke-classes.js"></script>
     <script src="../dist/bespoke-multimedia.js"></script>
     <script src="demo.js"></script>
   </body>

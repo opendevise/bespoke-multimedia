@@ -1,6 +1,6 @@
-bespoke.from('article', [
+bespoke.from('.presentation', [
+  bespoke.plugins.classes(),
   bespoke.plugins.keys(),
   bespoke.plugins.touch(),
-  bespoke.plugins.classes(),
   bespoke.plugins.multimedia()
 ]);
