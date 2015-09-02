@@ -1,7 +1,7 @@
 Function.prototype.bind = Function.prototype.bind || require('function-bind');
 
-var bespoke = require('bespoke');
-var multimedia = require('../../lib-instrumented/bespoke-multimedia.js');
+var bespoke = require('bespoke'),
+  multimedia = require('../../lib/bespoke-multimedia.js');
 
 describe("bespoke-multimedia", function() {
 
@@ -86,7 +86,5 @@ describe("bespoke-multimedia", function() {
       deck.next();
       expect(deck.parent.querySelector('object').getAttribute('data')).toBe('asset/sample.svg');
     });
-
   });
-
 });

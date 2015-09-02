@@ -1,4 +1,3 @@
-node_modules
-bower_components
-lib-instrumented
-test/coverage
+/bower_components/
+/node_modules/
+/test/coverage/

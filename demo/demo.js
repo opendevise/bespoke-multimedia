@@ -1,4 +1,4 @@
-bespoke.from('.presentation', [
+bespoke.from('.deck', [
   bespoke.plugins.classes(),
   bespoke.plugins.keys(),
   bespoke.plugins.touch(),
