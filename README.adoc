@@ -1,6 +1,6 @@
 = bespoke-multimedia
 Dan Allen <https://github.com/mojavelinux>
-v1.0.1
+v1.0.2
 // Settings:
 :idprefix:
 :idseparator: -
