@@ -71,8 +71,13 @@ module.exports = function() {
       restartGifAnimations(slide);
     },
     activate = function(event) {
-      playVideos(event.slide);
-      restartAnimations(event.slide);
+      if (event.preview) {
+        pauseVideos(event.slide);
+      }
+      else {
+        playVideos(event.slide);
+        restartAnimations(event.slide);
+      }
     },
     deactivate = function(event) {
       pauseVideos(event.slide);
