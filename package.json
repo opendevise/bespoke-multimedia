@@ -51,5 +51,6 @@
   "license": "MIT",
   "keywords": [
     "bespoke-plugin"
-  ]
+  ],
+  "readme": "# bespoke-multimedia\n\nToggles playback of multimedia and restarts SVG and GIF animations on the active slide in a [Bespoke.js](http://markdalgleish.com/projects/bespoke.js) presentation.\n\n## Usage\n\nThis plugin is shipped in a [UMD format](https://github.com/umdjs/umd), meaning it is available as a CommonJS/AMD module or as a browser global.\n\nFor example, when using CommonJS modules:\n\n```js\nvar bespoke = require('bespoke'),\n  multimedia = require('bespoke-multimedia');\n\nbespoke.from('.deck', [\n  multimedia()\n]);\n```\n\nWhen using browser globals:\n\n```js\nbespoke.from('.deck', [\n  bespoke.plugins.multimedia()\n]);\n```\n\n## Package managers\n\n### npm\n\n```bash\n$ npm install bespoke-multimedia\n```\n\n### Bower\n\n```bash\n$ bower install bespoke-multimedia\n```\n\n## License\n\n[MIT License](http://en.wikipedia.org/wiki/MIT_License)\n"
 }
