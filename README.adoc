@@ -1,11 +1,14 @@
 = bespoke-multimedia
 Dan Allen <https://github.com/mojavelinux>
+v1.0.3
 // Settings:
 :idprefix:
 :idseparator: -
 ifdef::env-github[:badges:]
+// Variables:
+:release-version: v1.0.3
 // URIs:
-:uri-raw-file-base: https://raw.githubusercontent.com/opendevise/bespoke-multimedia/master
+:uri-raw-file-base: https://raw.githubusercontent.com/opendevise/bespoke-multimedia/{release-version}
 
 ifdef::badges[]
 image:https://img.shields.io/npm/v/bespoke-multimedia.svg[npm package, link=https://www.npmjs.com/package/bespoke-multimedia]
@@ -16,7 +19,19 @@ Toggles playback of multimedia and restarts SVG and GIF animations on the active
 
 == Download
 
-Download the {uri-raw-file-base}/dist/bespoke-multimedia.min.js[production mode version] or the {uri-raw-file-base}/dist/bespoke-multimedia.js[development mode version], or use a <<package-managers,package manager>>.
+Download the {uri-raw-file-base}/dist/bespoke-multimedia.min.js[production mode version] or the {uri-raw-file-base}/dist/bespoke-multimedia.js[development mode version], or use a package manager.
+
+=== npm
+
+```bash
+$ npm install bespoke-multimedia
+```
+
+=== Bower
+
+```bash
+$ bower install bespoke-multimedia
+```
 
 == Example
 
@@ -55,24 +70,6 @@ bespoke.from('.deck', [
   bespoke.plugins.multimedia()
 ]);
 ```
-
-== Package managers
-
-=== npm
-
-```bash
-$ npm install bespoke-multimedia
-```
-
-=== Bower
-
-```bash
-$ bower install bespoke-multimedia
-```
-
-== Credits
-
-This plugin was built with https://github.com/markdalgleish/generator-bespokeplugin[generator-bespokeplugin].
 
 == License
 
