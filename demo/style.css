@@ -70,17 +70,44 @@ p {
   padding: 0;
 }
 
+.media video,
+.media iframe,
+.vimeo-shell {
+  width: 100%;
+  height: 100%;
+}
+
 p.credit {
   position: absolute;
   bottom: 0;
+  right: 0;
+  line-height: 1;
   color: #ffffff;
-  text-align: right;
-  padding: 0 0.5em 0.25em 0.5em;
+  padding: 0.25em 0.75em;
   font-size: 0.75em;
-  width: 100%;
   z-index: 100;
 }
 
 p.credit a {
   color: #ffffff;
+}
+
+/* use the following three rules for hiding the playbar in Vimeo; you must wrap content in .vimeo-shell div */
+.media {
+  overflow: hidden;
+}
+
+.vimeo-shell {
+  position: relative;
+  width: 100%;
+  height: 200%;
+}
+
+.vimeo-shell iframe {
+  position: relative;
+  top: -25%;
+}
+
+.vimeo-shell p.credit {
+  bottom: 50%;
 }
