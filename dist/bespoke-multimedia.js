@@ -8,7 +8,8 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g=(g.bespoke||(g.bespoke = {}));g=(g.plugins||(g.plugins = {}));g.multimedia = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports = function() {
   return function(deck) {
-    var forEach = function(c, fn) {
+    var VIMEO_RE = /^https:\/\/player.vimeo.com\//,
+      forEach = function(c, fn) {
         Array.prototype.forEach.call(c, fn);
       },
       findAnimatedSvgs = function(slide) {
@@ -19,19 +20,40 @@ module.exports = function() {
         return slide.querySelectorAll('img[src*=".gif"]');
       },
       findVideos = function(slide) {
-        return slide.querySelectorAll('video');
+        return slide.querySelectorAll('video, iframe[src^="https://player.vimeo.com/"]');
       },
       playObject = function(obj) {
-        if (typeof obj.play === 'function' && obj.paused === true) {
-          // QUESTION should we raise a videoplayed event?
-          //obj.currentTime = 0;
-          obj.play();
+        if (typeof obj.play === 'function') {
+          if (obj.paused === true) {
+            // QUESTION should we raise a videoplayed event?
+            //obj.currentTime = 0;
+            obj.play();
+          }
+        }
+        else if (typeof obj.src === 'string') {
+          if (VIMEO_RE.test(obj.src)) {
+            if (window.location.href.startsWith('file://')) {
+              console.warn('Access denied: Cannot automatically play Vimeo video when deck is loaded from file URL');
+            }
+            else {
+              obj.contentWindow.postMessage({ 'method': 'play' }, '*');
+            }
+          }
         }
       },
       pauseObject = function(obj) {
-        if (typeof obj.pause === 'function' && obj.paused === false) {
-          // QUESTION should we raise a videopaused event?
-          obj.pause();
+        if (typeof obj.pause === 'function') {
+          if (obj.paused === false) {
+            // QUESTION should we raise a videopaused event?
+            obj.pause();
+          }
+        }
+        else if (typeof obj.src === 'string') {
+          if (VIMEO_RE.test(obj.src)) {
+            if (!window.location.href.startsWith('file://')) {
+              obj.contentWindow.postMessage({ 'method': 'pause' }, '*');
+            }
+          }
         }
       },
       playVideos = function(slide) {
