@@ -1,4 +1,6 @@
 /bower_components/
+/demo/dist/
 /node_modules/
 /test/coverage/
+/WORKLOG.adoc
 /package-README.md
