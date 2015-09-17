@@ -9,8 +9,12 @@
   <body>
     <article class="deck">
       <section>
-        <p>The video on the next slide will play automatically when the slide is activated.</p>
-        <p>When the slide is deactivated, the video will be paused.</p>
+        <h1>Demo</h1>
+        <p class="title">bespoke-multimedia</p>
+      </section>
+      <section>
+        <h1>Local Video</h1>
+        <p>The video on the next slide will play automatically when the slide is activated. When the slide is deactivated, the video will be paused.</p>
       </section>
       <section class="media">
         <video src="shapes.mp4" preload="auto" loop="true"></video> 
@@ -20,7 +24,8 @@
         </p>
       </section>
       <section>
-        <p>The same for the Vimeo video on the next slide (only if viewed through a web server).</p>
+        <h1>Vimeo Video</h1>
+        <p>The Vimeo video on the next slide will play automatically when the slide is activated, but only if viewed through a web server. When the slide is deactivated, the video will be paused.</p>
       </section>
       <section class="media">
         <div class="vimeo-shell">
@@ -29,7 +34,8 @@
         </div>
       </section>
       <section>
-        <p>The same for the YouTube video on the next slide (only if viewed through a web server).</p>
+        <h1>YouTube Video</h1>
+        <p>The YouTube video on the next slide will play automatically when the slide is activated, but only if viewed through a web server. When the slide is deactivated, the video will be paused.</p>
       </section>
       <section class="media">
         <iframe width="640" height="360" src="https://www.youtube.com/embed/AV3kYPutYfs?rel=0&amp;showinfo=0&amp;controls=0&amp;enablejsapi=1&amp;loop=1&amp;playlist=AV3kYPutYfs" frameborder="0" allowfullscreen data-volume="0"></iframe>
@@ -38,16 +44,21 @@
         -->
       </section>
       <section>
+        <h1>SVG Animation</h1>
         <p>The SVG on the next slide will animate automatically when the slide is activated.</p>
       </section>
       <section>
         <object data="orange-circle.svg" type="image/svg+xml"></object>
       </section>
+      <section>
+        <h1>GIF Animation</h1>
+        <p>The GIF on the next slide will animate automatically when the slide is activated.</p>
+      </section>
       <section class="media">
         <img src="http://i.giphy.com/90F8aUepslB84.gif" style="width: 100%">
       </section>
       <section>
-        <p>Last Slide</p>
+        <h1>The End</h1>
       </section>
     </article>
     <script src="../node_modules/bespoke/dist/bespoke.js"></script>
