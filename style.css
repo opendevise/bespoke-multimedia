@@ -12,12 +12,25 @@ body {
   margin: 0;
 }
 
+h1 {
+  margin: 0;
+  text-align: center;
+}
+
 p {
   margin: 0.5em 0;
+  font-size: 0.75em;
+}
+
+p.title {
+  margin: 0.25em 0;
+  font-size: 1em;
+  text-align: center;
 }
 
 .deck {
   font-family: Arial, sans-serif;
+  font-size: 2em;
   line-height: 1.6;
   color: #303030;
   /* enable kerning using forward-compatible CSS */
@@ -34,10 +47,10 @@ p {
 
 .bespoke-parent {
   position: absolute;
+  top: 0;
   left: 0;
   right: 0;
-  width: 100vw;
-  height: 100vh;
+  bottom: 0;
   pointer-events: none;
   overflow: hidden;
 }
@@ -54,6 +67,12 @@ p {
   border: 1px solid rgba(0,0,0,0.1);
   box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
   padding: 1em;
+  display: -webkit-flex;
+          display: flex;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-flex-direction: column;
+          flex-direction: column;
   -webkit-transition: all 0.3s ease;
      -moz-transition: all 0.3s ease;
       -ms-transition: all 0.3s ease;
@@ -64,9 +83,11 @@ p {
 .bespoke-active {
   opacity: 1;
   pointer-events: auto;
+  z-index: 1;
 }
 
-.bespoke-slide.media {
+.media {
+  display: block;
   padding: 0;
 }
 
@@ -84,7 +105,7 @@ p.credit {
   line-height: 1;
   color: #ffffff;
   padding: 0.25em 0.75em;
-  font-size: 0.75em;
+  font-size: 0.375em;
   z-index: 100;
 }
 
