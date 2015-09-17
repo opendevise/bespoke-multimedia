@@ -16,25 +16,9 @@ endif::[]
 
 Toggles playback of multimedia and restarts SVG and GIF animations on the active slide in a http://markdalgleish.com/projects/bespoke.js[Bespoke.js] presentation.
 
-== Download
-
-Download the {uri-raw-file-base}/dist/bespoke-multimedia.min.js[production mode version] or the {uri-raw-file-base}/dist/bespoke-multimedia.js[development mode version], or use a package manager.
-
-=== npm
-
-```bash
-$ npm install bespoke-multimedia
-```
-
-=== Bower
-
-```bash
-$ bower install bespoke-multimedia
-```
-
 == Example
 
-//http://opendevise.github.io/bespoke-multimedia[View the demo] online.
+http://opendevise.github.io/bespoke-multimedia[View the demo] online.
 
 This repository includes a demo folder the shows this plugin in action.
 To view it locally, you first need to clone this repository:
@@ -47,9 +31,21 @@ Next, install the dependencies inside the project folder using npm:
 
 Finally, visit the file [path]_demo/index.html_ in your browser and navigate between slides to see the multimedia playback in action.
 
+== Download
+
+Download the {uri-raw-file-base}/dist/bespoke-multimedia.min.js[production mode version] or the {uri-raw-file-base}/dist/bespoke-multimedia.js[development mode version], or use a package manager.
+
+=== npm
+
+ $ npm install bespoke-multimedia
+
+=== Bower
+
+ $ bower install bespoke-multimedia
+
 == Usage
 
-This plugin is shipped in a https://github.com/umdjs/umd[UMD format], meaning that it is available as a CommonJS/AMD module or as a browser global.
+This plugin is shipped in a https://github.com/umdjs/umd[UMD format], meaning it is available as a CommonJS/AMD module or as a browser global.
 
 For example, when using CommonJS modules:
 
