@@ -1,14 +1,14 @@
 var gulp = require('gulp'),
-  del = require('del'),
-  jshint = require('gulp-jshint'),
-  karma = require('karma'),
-  header = require('gulp-header'),
-  rename = require('gulp-rename'),
-  uglify = require('gulp-uglify'),
   pkg = require('./package.json'),
   browserify = require('browserify'),
+  buffer = require('vinyl-buffer'),
+  del = require('del'),
+  header = require('gulp-header'),
+  jshint = require('gulp-jshint'),
+  karma = require('karma'),
+  rename = require('gulp-rename'),
   source = require('vinyl-source-stream'),
-  buffer = require('vinyl-buffer');
+  uglify = require('gulp-uglify');
 
 gulp.task('default', ['clean', 'lint', 'test', 'compile']);
 gulp.task('dev', ['compile', 'lint', 'test', 'watch']);
