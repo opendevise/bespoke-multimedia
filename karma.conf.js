@@ -13,7 +13,7 @@ module.exports = function(config) {
     exclude: [],
 
     proxies: {
-      '/asset/': 'http://localhost:8080/test/asset/'
+      '/asset': 'http://localhost:8080/test/asset'
     },
 
     preprocessors: {
@@ -40,29 +40,19 @@ module.exports = function(config) {
 
     autoWatch: false,
 
-    customLaunchers: { 
-      PhantomJS_custom: {
+    customLaunchers: {
+      PhantomJS_16x9: {
         base: 'PhantomJS',
-        options: {
-          viewportSize: { width: 1280, height: 720 }
-        },
-        debug: false
-      },
-      PhantomJS_debug: {
-        base: 'PhantomJS',
-        options: {
-          viewportSize: { width: 1280, height: 720 }
-        },
-        debug: true
+        options: { viewportSize: { width: 1280, height: 720 } }
       }
     },
 
     //browserNoActivityTimeout: 60000,
 
-    browsers: ['PhantomJS_custom']
-    //browsers: ['PhantomJS_debug']
+    //browsers: ['PhantomJS']
+    browsers: ['PhantomJS_16x9']
     //browsers: ['Firefox']
     //browsers: ['Chrome']
-    //browsers: ['PhantomJS_custom', 'Firefox']
+    //browsers: ['PhantomJS_16x9', 'Firefox', 'Chrome']
   });
 };
