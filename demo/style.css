@@ -110,7 +110,11 @@ p.credit {
 }
 
 p.credit a {
-  color: #ffffff;
+  color: inherit;
+}
+
+audio + p.credit {
+  color: inherit;
 }
 
 /* use the following three rules for hiding the playbar in Vimeo; you must wrap content in .vimeo-shell div */

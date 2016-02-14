@@ -71,7 +71,7 @@ gulp.task('compile:demo:css', ['clean'], function() {
 });
 
 gulp.task('compile:demo:assets', ['clean'], function() {
-  return gulp.src('demo/*.{svg,mp4}')
+  return gulp.src('demo/*.{ogg,mp4,svg}')
     .pipe(gulp.dest('demo/dist'));
 });
 
