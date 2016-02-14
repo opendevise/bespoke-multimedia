@@ -18,14 +18,11 @@ module.exports = function() {
         // QUESTION should we require an "animated" class on the object element?
         return scope.querySelectorAll('object[type="image/svg+xml"]');
       },
-      findAudio = function(scope) {
-        return scope.querySelectorAll('audio');
-      },
       findGifs = function(scope) {
         return scope.querySelectorAll('img[src*=".gif"]');
       },
-      findVideos = function(scope) {
-        return scope.querySelectorAll('video,iframe[src*="//www.youtube.com/embed/"],iframe[src*="//player.vimeo.com/"]');
+      findMedia = function(scope) {
+        return scope.querySelectorAll('audio,video,iframe[src*="//www.youtube.com/embed/"],iframe[src*="//player.vimeo.com/"]');
       },
       playMedia = function(obj) {
         var volume = parseInt(obj.getAttribute('data-volume'), 10);
@@ -70,17 +67,11 @@ module.exports = function() {
           }
         }
       },
-      playAudio = function(slide) {
-        forEach(findAudio(slide), playMedia);
+      playAllMedia = function(slide) {
+        forEach(findMedia(slide), playMedia);
       },
-      playVideos = function(slide) {
-        forEach(findVideos(slide), playMedia);
-      },
-      pauseAudio = function(slide) {
-        forEach(findAudio(slide), pauseMedia);
-      },
-      pauseVideos = function(slide) {
-        forEach(findVideos(slide), pauseMedia);
+      pauseAllMedia = function(slide) {
+        forEach(findMedia(slide), pauseMedia);
       },
       // NOTE doesn't work reliably in Firefox
       restartSvgAnimation = function(obj) {
@@ -104,18 +95,15 @@ module.exports = function() {
       },
       activate = function(e) {
         if (e.preview) {
-          pauseAudio(e.slide);
-          pauseVideos(e.slide);
+          pauseAllMedia(e.slide);
         }
         else {
-          playAudio(e.slide);
-          playVideos(e.slide);
+          playAllMedia(e.slide);
           restartAnimations(e.slide);
         }
       },
       deactivate = function(e) {
-        pauseAudio(e.slide);
-        pauseVideos(e.slide);
+        pauseAllMedia(e.slide);
       };
     deck.on('activate', activate);
     deck.on('deactivate', deactivate);
