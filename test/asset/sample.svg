@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 100">
 <style>
-#orange-circle { animation: 5s linear 0s normal forwards 1 running coast }
+svg.active:root #orange-circle { animation: 5s linear 0s normal forwards 1 running coast }
 @keyframes coast { 100% { transform: translateX(400px) } }
 </style>
 <circle id="orange-circle" r="30" cx="50" cy="50" fill="orange"/>
