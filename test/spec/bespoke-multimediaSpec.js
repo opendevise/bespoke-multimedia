@@ -17,6 +17,7 @@ describe('bespoke-multimedia', function() {
           video.setAttribute('src', 'asset/sample.webm');
           video.setAttribute('loop', 'true');
           video.setAttribute('preload', 'auto');
+          video.setAttribute('data-volume', '1');
           if (typeof video.play !== 'function') {
             video.paused = true;
             video.play = function() { this.paused = false; };
@@ -29,7 +30,7 @@ describe('bespoke-multimedia', function() {
           audio.setAttribute('src', 'asset/sample.ogg');
           audio.setAttribute('loop', 'true');
           audio.setAttribute('preload', 'auto');
-          audio.setAttribute('data-volume', '0');
+          audio.setAttribute('data-volume', '1');
           if (typeof audio.play !== 'function') {
             audio.paused = true;
             audio.play = function() { this.paused = false; };
@@ -72,6 +73,7 @@ describe('bespoke-multimedia', function() {
       expect(video.paused).toBe(true);
       deck.next();
       expect(video.paused).toBe(false);
+      expect(video.volume).toBe(0.01);
     });
 
     it('should pause video when slide is deactivated', function() {
@@ -93,7 +95,7 @@ describe('bespoke-multimedia', function() {
       expect(audio.paused).toBe(true);
       deck.next();
       expect(audio.paused).toBe(false);
-      expect(audio.volume).toBe(0);
+      expect(audio.volume).toBe(0.01);
     });
 
     it('should pause audio when slide is deactivated', function() {
