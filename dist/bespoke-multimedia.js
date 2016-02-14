@@ -72,7 +72,6 @@ module.exports = function() {
       restartSvgAnimation = function(obj) {
         // NOTE obj.data resolves to the qualified URL; getAttribute('data') returns original value
         obj.data = obj.getAttribute('data'); // setting data forces element to reload, restarting SVG animation
-        //obj.setAttribute('data', obj.getAttribute('data'));
       },
       restartSvgAnimations = function(slide) {
         forEach(findAnimatedSvgs(slide), restartSvgAnimation);
