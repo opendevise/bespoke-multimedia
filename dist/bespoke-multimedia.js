@@ -1,7 +1,7 @@
 /*!
  * bespoke-multimedia v1.0.4-dev
  *
- * Copyright 2015, Dan Allen
+ * Copyright 2016, Dan Allen
  * This content is released under the MIT license
  */
 
@@ -17,6 +17,9 @@ module.exports = function() {
       findAnimatedSvgs = function(scope) {
         // QUESTION should we require an "animated" class on the object element?
         return scope.querySelectorAll('object[type="image/svg+xml"]');
+      },
+      findAudio = function(scope) {
+        return scope.querySelectorAll('audio');
       },
       findGifs = function(scope) {
         return scope.querySelectorAll('img[src*=".gif"]');
@@ -35,7 +38,7 @@ module.exports = function() {
         else if (typeof obj.src === 'string') {
           if (VIMEO_URI_RE.test(obj.src)) {
             if (isLocalFile) {
-              console.warn('Access denied: Cannot automatically play Vimeo video since deck is loaded from a file:// URI');
+              console.warn('Access denied: Cannot automatically play Vimeo video since deck is loaded from a file:// URI.');
             }
             else {
               obj.contentWindow.postMessage('{ "method": "play" }', '*');
@@ -43,7 +46,7 @@ module.exports = function() {
           }
           else if (YOUTUBE_URI_RE.test(obj.src)) {
             if (isLocalFile) {
-              console.warn('Access denied: Cannot automatically play YouTube video since deck is loaded from a file:// URI');
+              console.warn('Access denied: Cannot automatically play YouTube video since deck is loaded from a file:// URI.');
             }
             else {
               var volume = parseInt(obj.getAttribute('data-volume'));
@@ -71,8 +74,14 @@ module.exports = function() {
           }
         }
       },
+      playAudio = function(slide) {
+        forEach(findAudio(slide), playObject);
+      },
       playVideos = function(slide) {
         forEach(findVideos(slide), playObject);
+      },
+      pauseAudio = function(slide) {
+        forEach(findAudio(slide), pauseObject);
       },
       pauseVideos = function(slide) {
         forEach(findVideos(slide), pauseObject);
@@ -99,14 +108,17 @@ module.exports = function() {
       },
       activate = function(e) {
         if (e.preview) {
+          pauseAudio(e.slide);
           pauseVideos(e.slide);
         }
         else {
+          playAudio(e.slide);
           playVideos(e.slide);
           restartAnimations(e.slide);
         }
       },
       deactivate = function(e) {
+        pauseAudio(e.slide);
         pauseVideos(e.slide);
       };
     deck.on('activate', activate);
