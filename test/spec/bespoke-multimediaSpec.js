@@ -93,6 +93,7 @@ describe('bespoke-multimedia', function() {
       expect(audio.paused).toBe(true);
       deck.next();
       expect(audio.paused).toBe(false);
+      expect(audio.volume).toBe(0);
     });
 
     it('should pause audio when slide is deactivated', function() {
