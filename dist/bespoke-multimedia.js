@@ -40,6 +40,7 @@ module.exports = function() {
         else if (typeof obj.src === 'string') {
           if (VIMEO_URI_RE.test(obj.src)) {
             if (isLocal) return console.warn(PLAYBACK_DENIED_MSG.replace(/%s/, 'Vimeo'));
+            if (volume !== null) obj.contentWindow.postMessage('{ "method": "setVolume", "value": ' + (volume / 100) + ' }', '*');
             obj.contentWindow.postMessage('{ "method": "play" }', '*');
           }
           else if (YOUTUBE_URI_RE.test(obj.src)) {
