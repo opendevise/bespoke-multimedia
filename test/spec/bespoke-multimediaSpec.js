@@ -17,7 +17,7 @@ describe('bespoke-multimedia', function() {
           video.setAttribute('src', 'asset/sample.webm');
           video.setAttribute('loop', 'true');
           video.setAttribute('preload', 'auto');
-          video.setAttribute('data-volume', '1');
+          video.setAttribute('data-volume', '0.1');
           if (typeof video.play !== 'function') {
             video.paused = true;
             video.play = function() { this.paused = false; };
@@ -30,7 +30,7 @@ describe('bespoke-multimedia', function() {
           audio.setAttribute('src', 'asset/sample.ogg');
           audio.setAttribute('loop', 'true');
           audio.setAttribute('preload', 'auto');
-          audio.setAttribute('data-volume', '1');
+          audio.setAttribute('data-volume', '0.1');
           if (typeof audio.play !== 'function') {
             audio.paused = true;
             audio.play = function() { this.paused = false; };

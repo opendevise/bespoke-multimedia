@@ -27,22 +27,22 @@ module.exports = function() {
         return scope.querySelectorAll('object[type="image/svg+xml"]' + (specifier || ''));
       },
       playMedia = function(obj) {
-        var vol = obj.hasAttribute('data-volume') ? Math.max(Math.min(parseFloat(obj.getAttribute('data-volume')), 100), 0) : null;
+        var vol = obj.hasAttribute('data-volume') ? Math.max(Math.min(parseFloat(obj.getAttribute('data-volume')), 10), 0) : null;
         if (typeof obj.play === 'function') {
           if (obj.paused === true) {
-            if (vol !== null) obj.volume = vol/100;
+            if (vol !== null) obj.volume = vol/10;
             obj.play();
           }
         }
         else if (obj.hasAttribute('src')) {
           if (VIMEO_URI_RE.test(obj.src)) {
             if (local) return console.warn(PLAYBACK_DENIED_MSG.replace(/%s/, 'Vimeo'));
-            if (vol !== null) postMessage(obj, {'method': 'setVolume', 'value': vol/100});
+            if (vol !== null) postMessage(obj, {'method': 'setVolume', 'value': vol/10});
             postMessage(obj, {'method': 'play'});
           }
           else if (YOUTUBE_URI_RE.test(obj.src)) {
             if (local) return console.warn(PLAYBACK_DENIED_MSG.replace(/%s/, 'YouTube'));
-            if (vol !== null) postMessage(obj, {'event': 'command', 'func': 'setVolume', 'args': [vol]});
+            if (vol !== null) postMessage(obj, {'event': 'command', 'func': 'setVolume', 'args': [vol*10]});
             postMessage(obj, {'event': 'command', 'func': 'playVideo'});
           }
         }
