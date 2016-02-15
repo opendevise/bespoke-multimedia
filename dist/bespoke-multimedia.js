@@ -13,21 +13,21 @@ module.exports = function() {
       post = function(obj, msg) { obj.contentWindow.postMessage(JSON.stringify(msg), '*'); },
       query = function(select, scope, pr) { return Array.prototype.slice.call(scope.querySelectorAll(select + (pr||''))); },
       play = function(obj) {
-        var vol = Math.max(Math.min(parseFloat(obj.getAttribute('data-volume')), 10), 0), re = obj.getAttribute('data-restart') === 'true';
+        var vol = Math.max(Math.min(parseFloat(obj.getAttribute('data-volume')), 10), 0), rwd = obj.getAttribute('data-rewind') === 'true';
         if (obj.play) {
-          if (re) obj.currentTime = 0;
+          if (rwd) obj.currentTime = 0;
           if (!isNaN(vol)) obj.volume = vol/10;
           if (obj.paused) obj.play();
         }
         else {
           if (YOUTUBE_RE.test(obj.src)) {
-            if (re) post(obj, {event:CMD, func:'seekTo', args:[0]});
+            if (rwd) post(obj, {event:CMD, func:'seekTo', args:[0]});
             if (!isNaN(vol)) post(obj, {event:CMD, func:'setVolume', args:[vol*10]});
             post(obj, {event:CMD, func:'playVideo'});
           }
           else if (VIMEO_RE.test(obj.src)) {
             if (file) return console.warn('WARNING: Cannot control Vimeo video since deck is loaded from a file:// URI.');
-            if (re) post(obj, {method:'seekTo', value:0});
+            if (rwd) post(obj, {method:'seekTo', value:0});
             if (!isNaN(vol)) post(obj, {method:'setVolume', value:vol/10});
             post(obj, {method:'play'});
           }
@@ -56,8 +56,8 @@ module.exports = function() {
         }
       },
       deactivateSvg = function(obj) { obj.contentDocument.documentElement.classList.remove(ACTIVE); },
-      findMedia = query.bind(null, 'audio,video,iframe[src*="//www.youtube.com/embed/"],iframe[src*="//player.vimeo.com/"]'),
-      findGifs = query.bind(null, 'img[src*=".gif"][data-restart=true]'),
+      findMedia = query.bind(null, 'audio,video,iframe'),
+      findGifs = query.bind(null, 'img[src$=".gif"][data-reload=true]'),
       findSvgs = query.bind(null, 'object[type="image/svg+xml"]'),
       playMedia = function(slide) { findMedia(slide).forEach(play); },
       pauseMedia = function(slide) { findMedia(slide).forEach(pause); },
