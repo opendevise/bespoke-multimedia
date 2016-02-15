@@ -6,8 +6,7 @@ module.exports = function(config) {
 
     files: [
       'test/spec/*Spec.js',
-      { pattern: 'test/asset/*.svg', watched: false, included: false, served: true },
-      { pattern: 'test/asset/*.webm', watched: false, included: false, served: true }
+      { pattern: 'test/asset/*.+(ogg|svg|webm)', watched: false, included: false, served: true }
     ],
 
     exclude: [],
@@ -46,8 +45,6 @@ module.exports = function(config) {
         options: { viewportSize: { width: 1280, height: 720 } }
       }
     },
-
-    //browserNoActivityTimeout: 60000,
 
     //browsers: ['PhantomJS']
     browsers: ['PhantomJS_16x9']

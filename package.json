@@ -11,7 +11,7 @@
   "main": "./lib/bespoke-multimedia.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/opendevise/bespoke-multimedia.git"
+    "url": "https://github.com/opendevise/bespoke-multimedia.git"
   },
   "scripts": {
     "test": "gulp"
@@ -22,31 +22,35 @@
   "devDependencies": {
     "bespoke": "^1.0.0",
     "bespoke-classes": "^1.0.0",
-    "bespoke-keys": "^1.0.0",
-    "bespoke-touch": "^1.0.0",
-    "browserify": "^11.0.1",
+    "bespoke-nav": "^1.0.2",
+    "browserify": "^13.0.0",
     "browserify-istanbul": "^0.2.1",
-    "del": "^1.2.0",
+    "del": "^2.2.0",
     "function-bind": "^1.0.2",
-    "gh-pages": "^0.3.1",
-    "gulp": "^3.9.0",
+    "gh-pages": "^0.9.0",
+    "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
-    "gulp-header": "^1.2.2",
-    "gulp-jshint": "^1.11.2",
+    "gulp-header": "^1.7.1",
+    "gulp-jshint": "^2.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
-    "gulp-uglify": "^1.2.0",
-    "jshint-stylish": "^2.0.1",
-    "karma": "^0.13.9",
-    "karma-browserify": "^4.3.0",
-    "karma-coverage": "^0.5.1",
-    "karma-jasmine": "^0.3.6",
-    "karma-chrome-launcher": "^0.2.0",
-    "karma-firefox-launcher": "^0.1.6",
-    "karma-phantomjs-launcher": "^0.2.1",
-    "phantomjs": "^1.9.18",
+    "gulp-uglify": "^1.5.1",
+    "gulp-util": "^3.0.7",
+    "jasmine-core": "^2.4.1",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "^2.1.0",
+    "karma": "=0.13.18",
+    "karma-browserify": "^5.0.1",
+    "karma-coverage": "^0.5.3",
+    "karma-jasmine": "^0.3.7",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-phantomjs-launcher": "^0.2.3",
+    "phantomjs": "^1.9.19",
+    "socket.io": "=1.3.7",
     "vinyl-buffer": "1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
   },
   "engines": {
     "node": ">=0.10.0"

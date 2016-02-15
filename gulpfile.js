@@ -1,13 +1,15 @@
-var gulp = require('gulp'),
-  pkg = require('./package.json'),
+var pkg = require('./package.json'),
   browserify = require('browserify'),
   buffer = require('vinyl-buffer'),
   concat = require('gulp-concat'),
   del = require('del'),
+  gulp = require('gulp'),
+  gutil = require('gulp-util'),
   header = require('gulp-header'),
   jshint = require('gulp-jshint'),
   karma = require('karma'),
-  pages = require('gh-pages'),
+  ghpages = require('gh-pages'),
+  path = require('path'),
   rename = require('gulp-rename'),
   replace = require('gulp-replace'),
   source = require('vinyl-source-stream'),
@@ -21,8 +23,8 @@ gulp.task('watch', function() {
   gulp.watch('test/spec/**/*.js', ['test']);
 });
 
-gulp.task('clean', function(done) {
-  del(['dist', 'demo/dist', 'test/coverage'], done);
+gulp.task('clean', function() {
+  return del(['dist', 'demo/dist', 'test/coverage']);
 });
 
 gulp.task('lint', function() {
@@ -39,9 +41,7 @@ gulp.task('test', function(done) {
 });
 
 gulp.task('compile', ['clean'], function() {
-  return browserify({ standalone: 'bespoke.plugins.multimedia' })
-    .add('./lib/bespoke-multimedia.js')
-    .bundle()
+  return browserify('lib/bespoke-multimedia.js', { standalone: 'bespoke.plugins.multimedia' }).bundle()
     .pipe(source('bespoke-multimedia.js'))
     .pipe(buffer())
     .pipe(header([
@@ -85,16 +85,15 @@ gulp.task('compile:demo:js', ['compile'], function() {
   return gulp.src([
       'node_modules/bespoke/dist/bespoke.js',
       'node_modules/bespoke-classes/dist/bespoke-classes.js',
-      'node_modules/bespoke-keys/dist/bespoke-keys.js',
-      'node_modules/bespoke-touch/dist/bespoke-touch.js',
+      'node_modules/bespoke-nav/dist/bespoke-nav.js',
       'dist/bespoke-multimedia.js',
       'demo/demo.js'
   ])
   .pipe(concat('build.js'))
-  //.pipe(uglify())
+  .pipe(uglify())
   .pipe(gulp.dest('demo/dist'));
 });
 
 gulp.task('deploy', ['compile:demo'], function(done) {
-  pages.publish('demo/dist', {}, done);
+  ghpages.publish(path.join(__dirname, 'demo/dist'), { logger: gutil.log }, done);
 });
