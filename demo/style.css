@@ -1,11 +1,10 @@
-* {
-  -moz-box-sizing: inherit;
-       box-sizing: inherit;
+*, ::before, ::after {
+  box-sizing: inherit;
 }
 
 html {
-  -moz-box-sizing: border-box;
-       box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 15px;
 }
 
 body {
@@ -13,35 +12,28 @@ body {
 }
 
 h1 {
+  font-size: 1.618em;
+  line-height: 1.2;
   margin: 0;
   text-align: center;
 }
 
 p {
-  margin: 0.5em 0;
-  font-size: 0.75em;
-}
-
-p.title {
-  margin: 0.25em 0;
-  font-size: 1em;
-  text-align: center;
+  margin: 1em 0 0 0;
+  line-height: 1.6;
 }
 
 .deck {
   font-family: Arial, sans-serif;
-  font-size: 2em;
-  line-height: 1.6;
+  font-size: 1.5em;
   color: #303030;
-  /* enable kerning using forward-compatible CSS */
+  -webkit-font-feature-settings: "kern" 1;
+          font-feature-settings: "kern" 1;
   text-rendering: optimizeLegibility;
-  font-feature-settings: "kern" 1;
-  font-kerning: normal;
 }
 
 /* Hide deck and slide content until bespoke.js has added classes */
-.deck:not(.bespoke-parent),
-.deck section:not(.bespoke-slide) {
+.deck:not(.bespoke-parent), .deck section:not(.bespoke-slide) {
   display: none;
 }
 
@@ -51,33 +43,33 @@ p.title {
   left: 0;
   right: 0;
   bottom: 0;
-  pointer-events: none;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .bespoke-slide {
-  opacity: 0;
+  opacity: 0; /* force opacity to start at 0 to avoid transition on load when using bespoke-scale */
+  overflow: hidden;
   position: absolute;
-  top: 50%;
-  left: 50%;
   width: 640px;
   margin-left: -320px;
+  top: 50%;
   height: 360px;
   margin-top: -180px;
-  border: 1px solid rgba(0,0,0,0.1);
-  box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
-  padding: 1em;
+  left: 50%;
   display: -webkit-flex;
-          display: flex;
-  -webkit-justify-content: center;
-          justify-content: center;
+  display: -ms-flexbox;
+  display: flex;
+      -ms-flex-direction: column;
   -webkit-flex-direction: column;
           flex-direction: column;
-  -webkit-transition: all 0.3s ease;
-     -moz-transition: all 0.3s ease;
-      -ms-transition: all 0.3s ease;
-       -o-transition: all 0.3s ease;
-          transition: all 0.3s ease;
+            -ms-flex-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+  padding: 2rem;
+  transition: all 300ms ease;
 }
 
 .bespoke-active {
@@ -86,14 +78,22 @@ p.title {
   z-index: 1;
 }
 
-.media {
+.bespoke-slide.title {
+  font-size: 1.2em;
+}
+
+.bespoke-slide.title p {
+  line-height: 1;
+  text-align: center;
+}
+
+.bespoke-slide.media {
   display: block;
   padding: 0;
 }
 
-.media video,
-.media iframe,
-.vimeo-shell {
+.bespoke-slide.media video,
+.bespoke-slide.media iframe {
   width: 100%;
   height: 100%;
 }
@@ -103,9 +103,9 @@ p.credit {
   bottom: 0;
   right: 0;
   line-height: 1;
-  color: #ffffff;
-  padding: 0.25em 0.75em;
-  font-size: 0.375em;
+  color: #fff;
+  margin: 0.75em;
+  font-size: 0.5em;
   z-index: 100;
 }
 
@@ -115,24 +115,4 @@ p.credit a {
 
 audio + p.credit {
   color: inherit;
-}
-
-/* use the following three rules for hiding the playbar in Vimeo; you must wrap content in .vimeo-shell div */
-.media {
-  overflow: hidden;
-}
-
-.vimeo-shell {
-  position: relative;
-  width: 100%;
-  height: 200%;
-}
-
-.vimeo-shell iframe {
-  position: relative;
-  top: -25%;
-}
-
-.vimeo-shell p.credit {
-  bottom: 50%;
 }
