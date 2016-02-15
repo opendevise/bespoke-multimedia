@@ -62,6 +62,10 @@ module.exports = function() {
       pauseAllMedia = function(slide) {
         forEach(findMedia(slide), pauseMedia);
       },
+      reloadSvg = function(obj) {
+        // NOTE obj.data returns qualified URL whereas obj.getAttribute('data') returns original value
+        obj.data = obj.getAttribute('data'); // setting data forces element to reload, replaying autostart animations
+      },
       activateSvg = function(obj) {
         if (obj.getAttribute('data-reload') === 'true') reloadSvg(obj);
         else {
@@ -74,10 +78,6 @@ module.exports = function() {
             };
           }
         }
-      },
-      reloadSvg = function(obj) {
-        // NOTE obj.data returns qualified URL whereas obj.getAttribute('data') returns original value
-        obj.data = obj.getAttribute('data'); // setting data forces element to reload, replaying autostart animations
       },
       activateSvgs = function(slide) {
         forEach(findSvgs(slide), activateSvg);
