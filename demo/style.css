@@ -97,6 +97,10 @@ p {
   height: 100%;
 }
 
+.bespoke-slide.media img {
+  width: 100%;
+}
+
 p.credit {
   position: absolute;
   bottom: 0;
