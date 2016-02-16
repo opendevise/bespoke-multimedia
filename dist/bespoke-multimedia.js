@@ -8,12 +8,11 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g=(g.bespoke||(g.bespoke = {}));g=(g.plugins||(g.plugins = {}));g.multimedia = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports = function() {
   return function(deck) {
-    var VIMEO_RE = /\/\/player\.vimeo\.com\//, YOUTUBE_RE = /\/\/www\.youtube\.com\/embed\//, CMD = 'command',
-      file = window.location.protocol === 'file:',
+    var VIMEO_RE = /\/\/player\.vimeo\.com\//, YOUTUBE_RE = /\/\/www\.youtube\.com\/embed\//, CMD = 'command', file = location.protocol === 'file:',
       post = function(obj, msg) { obj.contentWindow.postMessage(JSON.stringify(msg), '*'); },
-      query = function(select, root, pr) { return Array.prototype.slice.call(root.querySelectorAll(select + (pr||''))); },
+      query = function(select, from, pred) { return Array.prototype.slice.call(from.querySelectorAll(select+(pred||''))); },
       play = function(obj) {
-        var vol = Math.max(Math.min(parseFloat(obj.getAttribute('data-volume')), 10), 0), rwd = obj.hasAttribute('data-rewind');
+        var rwd = obj.hasAttribute('data-rewind'), vol = Math.max(Math.min(parseFloat(obj.getAttribute('data-volume')), 10), 0);
         if (obj.play) {
           if (rwd) obj.currentTime = 0;
           if (!isNaN(vol)) obj.volume = vol/10;
@@ -36,11 +35,10 @@ module.exports = function() {
         else if (YOUTUBE_RE.test(obj.src)) post(obj, {event:CMD, func:'pauseVideo'});
         else if (!file && VIMEO_RE.test(obj.src)) post(obj, {method:'pause'});
       },
-      reloadGif = function(img) { img.src = img.getAttribute('src'); },
-      reloadSvg = function(obj) { obj.data = obj.getAttribute('data'); },
+      reload = function(img, key) { img[key||'src'] = img.getAttribute(key||'src'); },
       setActive = function(obj, act) { obj.contentDocument.documentElement.classList[act||'add']('active'); },
       activateSvg = function(obj) {
-        if (obj.hasAttribute('data-reload')) reloadSvg(obj);
+        if (obj.hasAttribute('data-reload')) reload(obj, 'data');
         else if (obj.contentDocument.documentElement.tagName === 'svg') setActive(obj);
         else { // wait for the SVG to load into object container
           obj.addEventListener('load', function onLoad() {
@@ -55,7 +53,7 @@ module.exports = function() {
       findSvgs = query.bind(null, 'object[type="image/svg+xml"]'),
       playMedia = function(slide) { findMedia(slide).forEach(play); },
       pauseMedia = function(slide) { findMedia(slide).forEach(pause); },
-      reloadGifs = function(slide) { findGifs(slide).forEach(reloadGif); },
+      reloadGifs = function(slide) { findGifs(slide).forEach(reload); },
       activateSvgs = function(slide) { findSvgs(slide).forEach(activateSvg); },
       deactivateSvgs = function(slide) { findSvgs(slide, ':not([data-reload])').forEach(deactivateSvg); },
       activate = function(e) {
