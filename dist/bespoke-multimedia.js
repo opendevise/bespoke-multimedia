@@ -36,12 +36,12 @@ module.exports = function() {
         else if (!file && VIMEO_RE.test(obj.src)) post(obj, {method:'pause'});
       },
       reload = function(obj, name) { obj[name||'src'] = obj.getAttribute(name||'src'); },
-      svgRoot = function(obj) { try { return obj.contentDocument.rootElement; } catch(e) {} },
-      setActive = function(obj, m) { (svgRoot(obj)||obj).classList[m||'add']('active'); },
+      svg = function(obj) { try { return obj.contentDocument.rootElement; } catch(e) {} },
+      setActive = function(obj, s) { (svg(obj)||obj).classList[s||'add']('active'); },
       activateSvg = function(obj) {
         if (obj.hasAttribute('data-reload')) reload(obj, 'data');
-        else if (svgRoot(obj)) setActive(obj);
-        else obj.onload = function() { if (deck.slides[deck.slide()].contains(this)) setActive(this); };
+        else if (svg(obj)) setActive(obj);
+        else obj.onload = function() { if (deck.slides[deck.slide()].contains(obj)) setActive(obj); };
       },
       deactivateSvg = function(obj) { setActive(obj, 'remove'); },
       findMedia = query.bind(null, 'audio,video,iframe'),
