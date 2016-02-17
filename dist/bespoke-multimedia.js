@@ -45,7 +45,7 @@ module.exports = function() {
       },
       deactivateSvg = function(obj) { setActive(obj, 'remove'); },
       findMedia = query.bind(null, 'audio,video,iframe'),
-      findGifs = query.bind(null, 'img[src$=".gif"][data-reload]'),
+      findGifs = query.bind(null, 'img[data-reload][src$=".gif"]'),
       findSvgs = query.bind(null, 'object[type="image/svg+xml"]'),
       playMedia = function(slide) { findMedia(slide).forEach(play); },
       pauseMedia = function(slide) { findMedia(slide).forEach(pause); },
