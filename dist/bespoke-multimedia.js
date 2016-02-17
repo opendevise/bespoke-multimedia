@@ -12,20 +12,20 @@ module.exports = function() {
       apply = function(sel, from, fn, mod) { for (var i = -1, r = from.querySelectorAll(sel+(mod||'')), l = r.length; ++i < l; fn(r[i])) {} },
       post = function(obj, msg) { obj.contentWindow.postMessage(JSON.stringify(msg), '*'); },
       play = function(obj) {
-        var rwd = obj.hasAttribute('data-rewind'), vol = Math.min(Math.max(parseFloat(obj.getAttribute('data-volume')), 0), 10);
+        var rew = obj.hasAttribute('data-rewind'), vol = Math.min(Math.max(parseFloat(obj.getAttribute('data-volume')), 0), 10);
         if (obj.play) {
-          if (rwd) obj.currentTime = 0;
+          if (rew) obj.currentTime = 0;
           if (!isNaN(vol)) obj.volume = vol/10;
           obj.play();
         }
         else if (YOUTUBE_RE.test(obj.src)) {
-          if (rwd) post(obj, {event:CMD, func:'seekTo', args:[0]});
+          if (rew) post(obj, {event:CMD, func:'seekTo', args:[0]});
           if (!isNaN(vol)) post(obj, {event:CMD, func:'setVolume', args:[vol*10]});
           post(obj, {event:CMD, func:'playVideo'});
         }
         else if (VIMEO_RE.test(obj.src)) {
           if (loc) return console.warn('WARNING: Cannot play Vimeo video when deck is loaded via file://.');
-          if (rwd) post(obj, {method:'seekTo', value:0});
+          if (rew) post(obj, {method:'seekTo', value:0});
           if (!isNaN(vol)) post(obj, {method:'setVolume', value:vol/10});
           post(obj, {method:'play'});
         }
