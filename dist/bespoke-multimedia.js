@@ -9,7 +9,7 @@
 module.exports = function() {
   return function(deck) {
     var VIMEO_RE = /\/\/player\.vimeo\.com\//, YOUTUBE_RE = /\/\/www\.youtube\.com\/embed\//, CMD = 'command', file = location.protocol === 'file:',
-      apply = function(sel, from, fn, pred) { for (var r = from.querySelectorAll(sel+(pred||'')), i = -1, l = r.length; ++i < l; fn(r[i])); },
+      apply = function(sel, from, fn, pred) { for (var r = from.querySelectorAll(sel+(pred||'')), i = -1, l = r.length; ++i < l; fn(r[i])){} },
       post = function(obj, msg) { obj.contentWindow.postMessage(JSON.stringify(msg), '*'); },
       play = function(obj) {
         var rwd = obj.hasAttribute('data-rewind'), vol = Math.max(Math.min(parseFloat(obj.getAttribute('data-volume')), 10), 0);
@@ -36,7 +36,7 @@ module.exports = function() {
         else if (!file && VIMEO_RE.test(obj.src)) post(obj, {method:'pause'});
       },
       reload = function(obj, name) { obj[name||'src'] = obj.getAttribute(name||'src'); },
-      svg = function(obj) { try { return obj.contentDocument.rootElement; } catch(e) {} },
+      svg = function(obj) { try { return obj.contentDocument.rootElement; } catch(e){} },
       setActive = function(obj, cmd) { (svg(obj)||obj).classList[cmd||'add']('active'); },
       activateSvg = function(obj) {
         if (obj.hasAttribute('data-reload')) reload(obj, 'data');
