@@ -9,8 +9,8 @@
 module.exports = function() {
   return function(deck) {
     var VIMEO_RE = /\/\/player\.vimeo\.com\//, YOUTUBE_RE = /\/\/www\.youtube\.com\/embed\//, CMD = 'command', file = location.protocol === 'file:',
+      apply = function(sel, from, fn, pred) { for (var r = from.querySelectorAll(sel+(pred||'')), i = -1, l = r.length; ++i < l; fn(r[i])); },
       post = function(obj, msg) { obj.contentWindow.postMessage(JSON.stringify(msg), '*'); },
-      query = function(sel, from, pred) { for (var r = [], n = from.querySelectorAll(sel+(pred||'')), i = n.length; i--; r[i] = n[i]); return r; },
       play = function(obj) {
         var rwd = obj.hasAttribute('data-rewind'), vol = Math.max(Math.min(parseFloat(obj.getAttribute('data-volume')), 10), 0);
         if (obj.play) {
@@ -37,21 +37,20 @@ module.exports = function() {
       },
       reload = function(obj, name) { obj[name||'src'] = obj.getAttribute(name||'src'); },
       svg = function(obj) { try { return obj.contentDocument.rootElement; } catch(e) {} },
-      setActive = function(obj, s) { (svg(obj)||obj).classList[s||'add']('active'); },
+      setActive = function(obj, cmd) { (svg(obj)||obj).classList[cmd||'add']('active'); },
       activateSvg = function(obj) {
         if (obj.hasAttribute('data-reload')) reload(obj, 'data');
         else if (svg(obj)) setActive(obj);
         else obj.onload = function() { if (deck.slides[deck.slide()].contains(obj)) setActive(obj); };
       },
       deactivateSvg = function(obj) { setActive(obj, 'remove'); },
-      findMedia = query.bind(null, 'audio,video,iframe'),
-      findGifs = query.bind(null, 'img[data-reload][src$=".gif"]'),
-      findSvgs = query.bind(null, 'object[type="image/svg+xml"]'),
-      playMedia = function(slide) { findMedia(slide).forEach(play); },
-      pauseMedia = function(slide) { findMedia(slide).forEach(pause); },
-      reloadGifs = function(slide) { findGifs(slide).forEach(reload); },
-      activateSvgs = function(slide) { findSvgs(slide).forEach(activateSvg); },
-      deactivateSvgs = function(slide) { findSvgs(slide, ':not([data-reload])').forEach(deactivateSvg); },
+      eachMedia = apply.bind(null, 'audio,video,iframe'),
+      eachSvg = apply.bind(null, 'object[type="image/svg+xml"]'),
+      playMedia = function(slide) { eachMedia(slide, play); },
+      pauseMedia = function(slide) { eachMedia(slide, pause); },
+      activateSvgs = function(slide) { eachSvg(slide, activateSvg); },
+      deactivateSvgs = function(slide) { eachSvg(slide, deactivateSvg, ':not([data-reload])'); },
+      reloadGifs = function(slide) { apply('img[data-reload][src$=".gif"]', slide, reload); },
       activate = function(e) {
         if (e.preview) return pauseMedia(e.slide);
         playMedia(e.slide);
