@@ -9,7 +9,7 @@
 module.exports = function() {
   return function(deck) {
     var VIMEO_RE = /\/\/player\.vimeo\.com\//, YOUTUBE_RE = /\/\/www\.youtube\.com\/embed\//, CMD = 'command', file = location.protocol === 'file:',
-      apply = function(sel, from, fn, pred) { for (var r = from.querySelectorAll(sel+(pred||'')), i = -1, l = r.length; ++i < l; fn(r[i])){} },
+      apply = function(sel, from, fn, pred) { for (var i = -1, r = from.querySelectorAll(sel+(pred||'')), l = r.length; ++i < l; fn(r[i])){} },
       post = function(obj, msg) { obj.contentWindow.postMessage(JSON.stringify(msg), '*'); },
       play = function(obj) {
         var rwd = obj.hasAttribute('data-rewind'), vol = Math.max(Math.min(parseFloat(obj.getAttribute('data-volume')), 10), 0);
