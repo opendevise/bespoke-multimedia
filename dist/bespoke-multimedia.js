@@ -37,13 +37,13 @@ module.exports = function() {
       },
       reload = function(obj, name) { obj[name||'src'] = obj.getAttribute(name||'src'); },
       svg = function(obj) { try { return obj.contentDocument.rootElement; } catch(e) {} },
-      setActive = function(obj, cmd) { (svg(obj)||obj).classList[cmd||'add']('active'); },
+      toggle = function(obj, cmd) { (svg(obj)||obj).classList[cmd||'add']('active'); },
       activateSvg = function(obj) {
         if (obj.hasAttribute('data-reload')) reload(obj, 'data');
-        else if (svg(obj)) setActive(obj);
-        else obj.onload = function() { if (deck.slides[deck.slide()].contains(obj)) setActive(obj); };
+        else if (svg(obj)) toggle(obj);
+        else obj.onload = function() { if (deck.slides[deck.slide()].contains(obj)) toggle(obj); };
       },
-      deactivateSvg = function(obj) { setActive(obj, 'remove'); },
+      deactivateSvg = function(obj) { toggle(obj, 'remove'); },
       eachMedia = apply.bind(null, 'audio,video,iframe'),
       eachSvg = apply.bind(null, 'object[type="image/svg+xml"]'),
       playMedia = function(slide) { eachMedia(slide, play); },
