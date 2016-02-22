@@ -20,7 +20,7 @@ Toggles playback of multimedia and restarts SVG and GIF animations on the active
 
 http://opendevise.github.io/bespoke-multimedia[View the demo] online.
 
-This repository includes a demo folder the shows this plugin in action.
+This repository includes a demo folder that shows this plugin in action.
 To view it locally, you first need to clone this repository:
 
  $ git clone https://github.com/opendevise/bespoke-multimedia && cd bespoke-multimedia
