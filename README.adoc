@@ -3,13 +3,13 @@ Dan Allen <https://github.com/mojavelinux>
 // Settings:
 :idprefix:
 :idseparator: -
-ifdef::env-github[:badges:]
+ifdef::env-github[:status:]
 // Variables:
 :release-version: v1.0.3
 // URIs:
 :uri-raw-file-base: https://raw.githubusercontent.com/opendevise/bespoke-multimedia/{release-version}
 
-ifdef::badges[]
+ifdef::status[]
 image:https://img.shields.io/npm/v/bespoke-multimedia.svg[npm package, link=https://www.npmjs.com/package/bespoke-multimedia]
 image:https://img.shields.io/travis/opendevise/bespoke-multimedia/master.svg[Build Status (Travis CI), link=https://travis-ci.org/opendevise/bespoke-multimedia]
 endif::[]
@@ -64,6 +64,204 @@ When using browser globals:
 bespoke.from('.deck', [
   bespoke.plugins.multimedia()
 ]);
+```
+
+== Behavior
+
+This plugin automatically plays all multimedia on the active slide, then later pauses it when the slide becomes inactive.
+The definition of "`play`" and "`pause`" depends on the media type.
+
+The supported media types are:
+
+* Built-in HTML audio (`<audio>` element)
+* Built-in HTML video (`<video>` element)
+* Vimeo video
+* YouTube video
+* Animated SVG (embedded using the `<object>` element)
+* Animated GIF (image ending in `.gif`)
+
+The following sections describe how each media type is handled.
+
+=== Built-In HTML Audio
+
+All audio elements on the active slide are played automatically when the slide is activated.
+When the slide is deactivated, the audio is paused.
+
+==== Options
+
+You can use (most of) the https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio[built-in attributes] supported by the `<audio>` element, such as `preload` and `loop`.
+In addition to those attributes, this plugin recognizes the following custom attributes:
+
+data-rewind _(type: boolean, default: false)_::
+If this attribute is present, the audio stream is restarted each time playback is triggered.
+
+data-volume _(type: integer)_::
+This attribute can be used to set the volume of the audio stream.
+The value must be an integer between 0 and 10, where 0 is muted and 10 is full volume.
+Any value outside this range will be coerced to the closest range limit.
+If this attribute is not specified, the volume of the audio stream is not modified.
+
+NOTE: Using the `autoplay` and `volume` attributes is not recommended since they conflict with the behavior of this plugin.
+
+==== Example
+
+```html
+<audio src="clearday.ogg" preload="auto" loop="true" data-volume="2" data-rewind></audio>
+```
+
+=== Built-In HTML Video
+
+All video elements on the active slide are played automatically when the slide is activated.
+When the slide is deactivated, the videos are paused.
+
+WARNING: If the MIME type for the video is not set correctly on the server, the video may not appear.
+
+==== Options
+
+You can use (most of) the https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video[built-in attributes] supported by the `<video>` element, such as `controls`, `preload` and `loop`.
+In addition to those attributes, this plugin recognizes the following custom attributes:
+
+data-rewind _(type: boolean, default: false)_::
+If this attribute is present, the video is restarted each time playback is triggered.
+
+data-volume _(type: integer)_::
+This attribute can be used to set the volume of the video.
+The value must be an integer between 0 and 10, where 0 is muted and 10 is full volume.
+Any value outside this range will be coerced to the closest range limit.
+If this attribute is not specified, the volume of the video is not modified.
+
+NOTE: Using the `autoplay` attribute is not recommended since it conflicts with the behavior of this plugin.
+
+==== Example
+
+```html
+<video src="shapes.mp4" preload="auto" loop="true"></video> 
+```
+
+=== Vimeo Video
+
+All Vimeo videos on the active slide are played automatically when the slide is activated using Vimeo's https://developer.vimeo.com/player/js-api#universal[Universal JavaScript API].
+When the slide is deactivated, the videos are paused.
+
+WARNING: Video playback only works if the presentation is viewed through a web server.
+
+In order for the plugin to control Vimeo videos via the JavaScript API (and also distinguish between multiple videos), for each video, you must:
+
+. Include an `id` attribute on the `<iframe>` element.
+. Add `player_id=PLAYER_ID` to the query string of the video URL, where `PLAYER_ID` is the value of the `id` attribute.
+. Add `api=1` to the query string of the video URL.
+. Add `autoplay=0` to the query string of the video URL.
+
+Refer to the example later in this section for details.
+
+==== Options
+
+You can use (most of) the https://developer.vimeo.com/player/embedding#universal-parameters[universal parameters] supported by the Vimeo player, such as `background` and `loop`.
+
+TIP: At the time of writing, the `background` parameter was not yet documented.
+If you set this parameter to `1`, Vimeo will hide all the controls.
+This setting providing an emersive playback experience, ideal for a presentation slide.
+However, the video is muted by default in background mode.
+If your video has sound, and you want that sound to be heard, you must specify the `data-volume` attribute.
+
+This plugin also recognizes the following custom attributes:
+
+data-rewind _(type: boolean, default: false)_::
+If this attribute is present, the video is restarted each time playback is triggered.
+
+data-volume _(type: integer)_::
+This attribute can be used to set the volume of the video.
+The value must be an integer between 0 and 10, where 0 is muted and 10 is full volume.
+Any value outside this range will be coerced to the closest range limit.
+If this attribute is not specified, the volume of the video is not modified.
+
+==== Example
+
+```html
+<iframe id="shapes" src="https://player.vimeo.com/video/18270184?player_id=shapes&amp;api=1&amp;autoplay=0&amp;background=1" frameborder="0" allowfullscreen></iframe>
+```
+
+=== YouTube Video
+
+All YouTube videos on the active slide are played automatically when the slide is activated using YouTube's https://developers.google.com/youtube/iframe_api_reference[IFrame API].
+When the slide is deactivated, the videos are paused.
+
+In order for the plugin to control YouTube videos via the JavaScript API, for each video, you must:
+
+. Add `enablejsapi=1` to the query string of the video URL.
+. Add `autoplay=0` to the query string of the video URL.
+
+Refer to the example later in this section for details.
+
+==== Options
+
+You can use (most of) the https://developers.google.com/youtube/player_parameters[player parameters] supported by the YouTube player, such as `controls`, `loop` and `rel`.
+
+IMPORTANT: In order for the `loop` parameter to work, you must also specify the `playlist` parameter with a value equal to the video ID.
+
+==== Example
+
+```html
+<iframe width="640" height="360" src="https://www.youtube.com/embed/AV3kYPutYfs?rel=0&amp;showinfo=0&amp;controls=0&amp;enablejsapi=1&amp;autoplay=0" frameborder="0" allowfullscreen></iframe>
+```
+
+=== Animated SVG
+
+All SVGs on the active slide that are embedded using an `<object>` element are automatically either reloaded or marked active (depending on how the SVG is configured) when the slide is activated.
+When the slide is deactivated, any SVG previously marked active is marked inactive.
+
+If the `data-reload` attribute is present on the `<object>` element, the plugin forces the browser to reload the SVG by reassigning the `data` attribute.
+This should cause any animations defined in the SVG to restart.
+
+If the `data-reload` attribute is not present, and the SVG DOM is reachable using JavaScript, the `active` CSS class is toggled on the root SVG element.
+In this case, the animation must be configured to restart by way of a CSS rule.
+
+==== Options
+
+This plugin recognizes the following custom attributes:
+
+data-reload _(type: boolean, default: false)_::
+If present, instructs the plugin to reload the SVG by reassigning the `data` attribute.
+If this attribute is not present, the plugin toggles the CSS class on the root element of the SVG.
+
+==== Example
+
+```html
+<object data="orange-circle.svg" type="image/svg+xml"></object>
+```
+
+where the SVG [.path]_orange-circle.svg_ has the following content:
+
+```xml
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 100">
+<style>
+svg.active:root #orange-circle { animation: 5s linear 0s normal forwards 1 running coast }
+@keyframes coast { 100% { transform: translateX(400px) } }
+</style>
+<circle id="orange-circle" r="30" cx="50" cy="50" fill="orange"/>
+</svg>
+```
+
+=== Animated GIF
+
+All GIFs that have a `data-reload` attribute on the active slide are automatically reloaded when the slide is activated.
+No action is taken when the slide is deactivated.
+
+The plugin forces the browser to reload the SVG by reassigning the `src` attribute.
+This should cause the GIF animation to restart.
+
+==== Options
+
+This plugin recognizes the following custom attributes:
+
+data-reload _(type: boolean, default: false)_::
+If present, instructs the plugin to reload the GIF by reassigning the `src` attribute.
+If this attribute is not present, the plugin takes no action on the GIF.
+
+==== Example
+
+```html
+<img src="http://i.giphy.com/90F8aUepslB84.gif" data-reload>
 ```
 
 == License
