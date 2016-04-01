@@ -44,10 +44,15 @@ describe('bespoke-multimedia', function() {
           section.appendChild(audio); 
         }
         else if (i == 4) {
-          var object = document.createElement('object');
-          object.setAttribute('type', 'image/svg+xml');
-          object.setAttribute('data', 'asset/sample.svg');
-          section.appendChild(object);
+          var object1 = document.createElement('object');
+          object1.setAttribute('type', 'image/svg+xml');
+          object1.setAttribute('data', 'asset/sample.svg');
+          section.appendChild(object1);
+          var object2 = document.createElement('object');
+          object2.setAttribute('type', 'image/svg+xml');
+          object2.setAttribute('data', 'asset/sample.svg');
+          object2.setAttribute('data-reload', 'true');
+          section.appendChild(object2);
         }
         parent.appendChild(section);
       }
@@ -60,6 +65,9 @@ describe('bespoke-multimedia', function() {
     },
     destroyDeck = function() {
       if (parent != null) parent.parentNode.removeChild(parent);
+    },
+    skipIfPhantom = function() {
+      if (/PhantomJS/.test(window.navigator.userAgent)) pending();
     };
 
   beforeEach(createDeck);
@@ -127,11 +135,112 @@ describe('bespoke-multimedia', function() {
   describe('SVG animation', function() {
     beforeEach(function() { deck.slide(0); });
 
-    // NOTE this doesn't really test anything, other than looking for the SVG doesn't break the plugin
-    it('should animate SVG when slide is activated', function() {
+    it('should add active class to SVG when slide is activated', function(done) {
+      skipIfPhantom();
       deck.slide(2);
       deck.next();
-      expect(deck.parent.querySelector('object').getAttribute('data')).toBe('asset/sample.svg');
+      obj = deck.parent.querySelector('object:not([data-reload])');
+      svgNode = null;
+      try {
+        svgNode = contentDocument.rootElement;
+      }
+      catch (e) {}
+      if (svgNode) {
+        expect(svgNode.nodeName).toBe('svg');
+        expect(svgNode.getAttribute('class')).toBe('active');
+        done();
+      }
+      else {
+        var listener = null;
+        obj.addEventListener('load', (listener = function() {
+          obj.removeEventListener('load', listener);
+          svgNode = obj.contentDocument.rootElement;
+          expect(svgNode).not.toBeNull();
+          expect(svgNode.nodeName).toBe('svg');
+          expect(svgNode.getAttribute('class')).toBe('active');
+          done();
+        }));
+      }
+    });
+
+    it('should remove active class from SVG when slide is deactivated', function(done) {
+      skipIfPhantom();
+      deck.slide(2);
+      deck.next();
+      obj = deck.parent.querySelector('object:not([data-reload])');
+      svgNode = null;
+      try {
+        svgNode = contentDocument.rootElement;
+      }
+      catch (e) {}
+      if (svgNode) {
+        expect(svgNode.nodeName).toBe('svg');
+        expect(svgNode.getAttribute('class')).toBe('active');
+        deck.next();
+        expect(svgNode.getAttribute('class')).toBe('');
+        done();
+      }
+      else {
+        var listener = null;
+        obj.addEventListener('load', (listener = function() {
+          obj.removeEventListener('load', listener);
+          svgNode = obj.contentDocument.rootElement;
+          expect(svgNode).not.toBeNull();
+          expect(svgNode.nodeName).toBe('svg');
+          expect(svgNode.getAttribute('class')).toBe('active');
+          deck.next();
+          expect(svgNode.getAttribute('class')).toBe('');
+          done();
+        }));
+      }
+    });
+
+    // NOTE check SVG is reloaded by placing marker attribute on SVG document, then verifying it vanishes
+    it('should reload SVG when slide is activated', function(done) {
+      skipIfPhantom();
+      deck.slide(2);
+      deck.next();
+      obj = deck.parent.querySelector('object[data-reload]');
+      svgNode = null;
+      try {
+        svgNode = contentDocument.rootElement;
+      }
+      catch (e) {}
+      if (svgNode) {
+        expect(svgNode.nodeName).toBe('svg');
+        svgNode.setAttribute('marker', 'true');
+        var listener = null;
+        obj.addEventListener('load', (listener = function() {
+          svgNode = obj.contentDocument.rootElement;
+          expect(svgNode).not.toBeNull();
+          expect(svgNode.nodeName).toBe('svg');
+          expect(svgNode.getAttribute('marker')).toBeNull();
+          done();
+        }));
+        deck.prev();
+        deck.next();
+        setTimeout(function() { fail('SVG not reloaded'); done(); }, 250);
+      }
+      else {
+        var listener = null;
+        obj.addEventListener('load', (listener = function() {
+          obj.removeEventListener('load', listener);
+          svgNode = obj.contentDocument.rootElement;
+          expect(svgNode).not.toBeNull();
+          expect(svgNode.nodeName).toBe('svg');
+          svgNode.setAttribute('foo', 'bar');
+          obj.addEventListener('load', (listener = function() {
+            svgNode = obj.contentDocument.rootElement;
+            expect(svgNode).not.toBeNull();
+            expect(svgNode.nodeName).toBe('svg');
+            expect(svgNode.getAttribute('foo')).toBeNull();
+            done();
+          }));
+          deck.prev();
+          deck.next();
+          setTimeout(function() { fail('SVG not reloaded'); done(); }, 250);
+        }));
+      }
     });
   });
 });
