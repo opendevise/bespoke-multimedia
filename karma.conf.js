@@ -12,7 +12,7 @@ module.exports = function(config) {
     exclude: [],
 
     proxies: {
-      '/asset': 'http://localhost:8080/test/asset'
+      '/asset/': '/base/test/asset/'
     },
 
     preprocessors: {
