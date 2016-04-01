@@ -18,10 +18,13 @@ describe('bespoke-multimedia', function() {
           video.setAttribute('loop', 'true');
           video.setAttribute('preload', 'auto');
           video.setAttribute('data-volume', '0.1');
+          if (i == 2) video.setAttribute('data-rewind', 'true');
           if (typeof video.play !== 'function') {
             video.paused = true;
-            video.play = function() { this.paused = false; };
-            video.pause = function() { this.paused = true; };
+            video.currentTime = 0;
+            video.play = function() { this.paused = false; this.currentTime += 0.25; };
+            video.pause = function() { this.paused = true; this.currentTime += 0.25; };
+            video.readyState = 1;
           }
           section.appendChild(video); 
         }
@@ -33,8 +36,10 @@ describe('bespoke-multimedia', function() {
           audio.setAttribute('data-volume', '0.1');
           if (typeof audio.play !== 'function') {
             audio.paused = true;
-            audio.play = function() { this.paused = false; };
-            audio.pause = function() { this.paused = true; };
+            audio.currentTime = 0;
+            audio.play = function() { this.paused = false; this.currentTime += 0.25; };
+            audio.pause = function() { this.paused = true; this.currentTime += 0.25; };
+            audio.readyState = 1;
           }
           section.appendChild(audio); 
         }
@@ -64,7 +69,7 @@ describe('bespoke-multimedia', function() {
     beforeEach(function() { deck.slide(0); });
 
     it('should play video on first slide', function() {
-      var video = deck.parent.querySelectorAll('video')[0];
+      var video = deck.parent.querySelector('video');
       expect(video.paused).toBe(false);
     });
 
@@ -83,6 +88,18 @@ describe('bespoke-multimedia', function() {
       expect(video0.paused).toBe(true);
       var video1 = deck.parent.querySelectorAll('video')[1];
       expect(video1.paused).toBe(true);
+    });
+
+    it('should rewind the video when data-rewind attribute is present', function(done) {
+      deck.slide(1);
+      var video = deck.parent.querySelectorAll('video')[1];
+      setTimeout(function() {
+        deck.next();
+        var pausedTime = video.currentTime;
+        deck.prev();
+        expect(pausedTime).toBeGreaterThan(video.currentTime);
+        done();
+      }, 500);
     });
   });
 
