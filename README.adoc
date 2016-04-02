@@ -112,7 +112,7 @@ The supported media types are:
 
 The following sections describe how each media type is handled.
 
-=== Built-In HTML Audio
+=== Native HTML Audio
 
 All audio elements on the active slide are played automatically when the slide is activated.
 When the slide is deactivated, the audio is paused.
@@ -131,7 +131,7 @@ In addition to the built-in attributes, this plugin also recognizes the custom a
 <audio src="clearday.ogg" preload="auto" loop="true" data-volume="2" data-rewind></audio>
 ```
 
-=== Built-In HTML Video
+=== Native HTML Video
 
 All video elements on the active slide are played automatically when the slide is activated.
 When the slide is deactivated, the videos are paused.
