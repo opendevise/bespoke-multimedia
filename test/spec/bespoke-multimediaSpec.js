@@ -182,6 +182,8 @@ describe('bespoke-multimedia', function() {
       skipIfPhantom();
       deck.slide(2);
       obj = deck.parent.querySelector('object:not([data-reload])');
+      // NOTE force a reload in this click
+      obj.data = obj.getAttribute('data');
       deck.next();
       var svgNode = null;
       try {
