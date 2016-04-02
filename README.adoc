@@ -174,9 +174,9 @@ You can use (most of) the https://developer.vimeo.com/player/embedding#universal
 
 TIP: At the time of writing, the `background` parameter was not yet documented.
 If you set this parameter to `1`, Vimeo will hide all the controls.
-This setting providing an emersive playback experience, ideal for a presentation slide.
-However, the video is muted by default in background mode.
-If your video has sound, and you want that sound to be heard, you must specify the `data-volume` attribute.
+This setting provides an emersive playback experience, ideal for a presentation slide.
+Note, however, that the video is muted by default in background mode.
+If your video has sound, and you want the sound to be heard, you must specify the `data-volume` attribute.
 
 This plugin also recognizes the custom attributes defined in <<custom-attributes-for-media-elements>>.
 
