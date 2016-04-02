@@ -66,6 +66,27 @@ bespoke.from('.deck', [
 ]);
 ```
 
+== Options
+
+This plugin does not currently expose any general options.
+However, each component has options that can be set using custom attributes.
+
+=== Custom Attributes for Media Elements
+
+data-rewind _(type: boolean, default: false)_::
+If this attribute is present, the media stream is restarted each time playback is triggered.
+
+data-volume _(type: integer, range: 0-10)_::
+This attribute can be used to set the volume of the media stream.
+The value must be an integer between 0 (muted) and 10 (full volume).
+Any value outside this range will be coerced to the closest range limit.
+If this attribute is not specified, the volume of the media stream remains unmodified.
+
+=== Custom Attributes for Image Elements
+
+data-reload _(type: boolean, default: false)_::
+If present, instructs the plugin to reload the image by reassigning the main URL attribute (`src` for GIF, `data` for SVG).
+
 == Behavior
 
 This plugin automatically plays all multimedia on the active slide, then later pauses it when the slide becomes inactive.
@@ -78,7 +99,7 @@ The supported media types are:
 * Vimeo video
 * YouTube video
 * Animated SVG (embedded using the `<object>` element)
-* Animated GIF (image ending in `.gif`)
+* Animated GIF (image with URL ending in `.gif`)
 
 The following sections describe how each media type is handled.
 
@@ -90,18 +111,10 @@ When the slide is deactivated, the audio is paused.
 ==== Options
 
 You can use (most of) the https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio[built-in attributes] supported by the `<audio>` element, such as `preload` and `loop`.
-In addition to those attributes, this plugin recognizes the following custom attributes:
 
-data-rewind _(type: boolean, default: false)_::
-If this attribute is present, the audio stream is restarted each time playback is triggered.
+CAUTION: Using the `autoplay` and `volume` attributes is not recommended since they conflict with the behavior of this plugin.
 
-data-volume _(type: integer)_::
-This attribute can be used to set the volume of the audio stream.
-The value must be an integer between 0 and 10, where 0 is muted and 10 is full volume.
-Any value outside this range will be coerced to the closest range limit.
-If this attribute is not specified, the volume of the audio stream is not modified.
-
-NOTE: Using the `autoplay` and `volume` attributes is not recommended since they conflict with the behavior of this plugin.
+In addition to the built-in attributes, this plugin also recognizes the custom attributes defined in <<custom-attributes-for-media-elements>>.
 
 ==== Example
 
@@ -119,18 +132,10 @@ WARNING: If the MIME type for the video is not set correctly on the server, the 
 ==== Options
 
 You can use (most of) the https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video[built-in attributes] supported by the `<video>` element, such as `controls`, `preload` and `loop`.
-In addition to those attributes, this plugin recognizes the following custom attributes:
 
-data-rewind _(type: boolean, default: false)_::
-If this attribute is present, the video is restarted each time playback is triggered.
+CAUTION: Using the `autoplay` attribute is not recommended since it conflicts with the behavior of this plugin.
 
-data-volume _(type: integer)_::
-This attribute can be used to set the volume of the video.
-The value must be an integer between 0 and 10, where 0 is muted and 10 is full volume.
-Any value outside this range will be coerced to the closest range limit.
-If this attribute is not specified, the volume of the video is not modified.
-
-NOTE: Using the `autoplay` attribute is not recommended since it conflicts with the behavior of this plugin.
+In addition to the built-in attributes, this plugin also recognizes the custom attributes defined in <<custom-attributes-for-media-elements>>.
 
 ==== Example
 
@@ -164,16 +169,7 @@ This setting providing an emersive playback experience, ideal for a presentation
 However, the video is muted by default in background mode.
 If your video has sound, and you want that sound to be heard, you must specify the `data-volume` attribute.
 
-This plugin also recognizes the following custom attributes:
-
-data-rewind _(type: boolean, default: false)_::
-If this attribute is present, the video is restarted each time playback is triggered.
-
-data-volume _(type: integer)_::
-This attribute can be used to set the volume of the video.
-The value must be an integer between 0 and 10, where 0 is muted and 10 is full volume.
-Any value outside this range will be coerced to the closest range limit.
-If this attribute is not specified, the volume of the video is not modified.
+This plugin also recognizes the custom attributes defined in <<custom-attributes-for-media-elements>>.
 
 ==== Example
 
@@ -199,6 +195,8 @@ You can use (most of) the https://developers.google.com/youtube/player_parameter
 
 IMPORTANT: In order for the `loop` parameter to work, you must also specify the `playlist` parameter with a value equal to the video ID.
 
+This plugin also recognizes the custom attributes defined in <<custom-attributes-for-media-elements>>.
+
 ==== Example
 
 ```html
@@ -218,11 +216,12 @@ In this case, the animation must be configured to restart by way of a CSS rule.
 
 ==== Options
 
-This plugin recognizes the following custom attributes:
+This plugin recognizes the custom attributes defined in <<custom-attributes-for-image-elements>>.
 
-data-reload _(type: boolean, default: false)_::
-If present, instructs the plugin to reload the SVG by reassigning the `data` attribute.
-If this attribute is not present, the plugin toggles the CSS class on the root element of the SVG.
+NOTE: If the `data-reload` attribute is not present, the plugin instead toggles the CSS class on the root element of the SVG.
+
+WARNING: The CSS class can only be toggled on the root element if the SVG is loaded from the same domain (i.e., same-origin policy).
+When the SVG is loaded from a different domain, you must add the `data-reload` attribute.
 
 ==== Example
 
@@ -252,11 +251,9 @@ This should cause the GIF animation to restart.
 
 ==== Options
 
-This plugin recognizes the following custom attributes:
+This plugin recognizes the custom attributes defined in <<custom-attributes-for-image-elements>>.
 
-data-reload _(type: boolean, default: false)_::
-If present, instructs the plugin to reload the GIF by reassigning the `src` attribute.
-If this attribute is not present, the plugin takes no action on the GIF.
+NOTE: If the `data-reload` attribute is not present, the plugin takes no action on the GIF.
 
 ==== Example
 
