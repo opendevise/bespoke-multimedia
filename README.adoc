@@ -3,7 +3,16 @@ Dan Allen <https://github.com/mojavelinux>
 // Settings:
 :idprefix:
 :idseparator: -
-ifdef::env-github[:status:]
+ifndef::env-github[:icons: font]
+ifdef::env-github[]
+:outfilesuffix: .adoc
+:status:
+:caution-caption: :fire:
+:important-caption: :exclamation:
+:note-caption: :paperclip:
+:tip-caption: :bulb:
+:warning-caption: :warning:
+endif::[]
 // Variables:
 :release-version: v1.0.3
 // URIs:
