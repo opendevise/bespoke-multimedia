@@ -103,12 +103,12 @@ The definition of "`play`" and "`pause`" depends on the media type.
 
 The supported media types are:
 
-* Native HTML audio (`<audio>` element)
-* Native HTML video (`<video>` element)
-* Vimeo video
-* YouTube video
-* Animated SVG (embedded using the `<object>` element)
-* Animated GIF (image with URL ending in `.gif`)
+* <<native-html-audio>> (`<audio>` element)
+* <<native-html-video>> (`<video>` element)
+* <<vimeo-video>>
+* <<youtube-video>>
+* <<animated-svg>> (embedded using the `<object>` element)
+* <<animated-gif>> (image with URL ending in `.gif`)
 
 The following sections describe how each media type is handled.
 
