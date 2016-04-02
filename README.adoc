@@ -202,7 +202,7 @@ Refer to the example later in this section for details.
 
 You can use (most of) the https://developers.google.com/youtube/player_parameters[player parameters] supported by the YouTube player, such as `controls`, `loop` and `rel`.
 
-IMPORTANT: In order for the `loop` parameter to work, you must also specify the `playlist` parameter with a value equal to the video ID.
+IMPORTANT: In order for the `loop` parameter to take effect, you must specify the `playlist` parameter with a value equal to the value of the `id` attribute.
 
 This plugin also recognizes the custom attributes defined in <<custom-attributes-for-media-elements>>.
 
