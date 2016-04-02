@@ -14,7 +14,7 @@ image:https://img.shields.io/npm/v/bespoke-multimedia.svg[npm package, link=http
 image:https://img.shields.io/travis/opendevise/bespoke-multimedia/master.svg[Build Status (Travis CI), link=https://travis-ci.org/opendevise/bespoke-multimedia]
 endif::[]
 
-Toggles playback of multimedia and restarts SVG and GIF animations on the active slide in a http://markdalgleish.com/projects/bespoke.js[Bespoke.js] presentation.
+Toggles playback of audio and (native, Vimeo or YouTube) video, toggles or restarts animations in SVGs and restarts animated GIFs in a http://markdalgleish.com/projects/bespoke.js[Bespoke.js] presentation.
 
 == Example
 
