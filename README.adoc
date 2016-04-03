@@ -137,6 +137,7 @@ All video elements on the active slide are played automatically when the slide i
 When the slide is deactivated, the videos are paused.
 
 WARNING: If the MIME type for the video is not set correctly on the server, the video may not appear.
+This restriction may be unique to Firefox.
 
 ==== Options
 
