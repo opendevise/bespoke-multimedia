@@ -66,8 +66,11 @@ describe('bespoke-multimedia', function() {
     destroyDeck = function() {
       if (parent) parent.parentNode.removeChild(parent);
     },
+    skipIfPhantom1 = function() {
+      if (/PhantomJS\/1/.test(window.navigator.userAgent)) pending();
+    },
     skipIfPhantom = function() {
-      if (/PhantomJS/.test(window.navigator.userAgent)) pending();
+      if (/PhantomJS\//.test(window.navigator.userAgent)) pending();
     },
     whenSvgNodeAvailable = function(obj, callback) {
       var svgNode = null;
@@ -153,7 +156,7 @@ describe('bespoke-multimedia', function() {
     beforeEach(function() { deck.slide(0); });
 
     it('should add active class to SVG when slide is activated', function(done) {
-      skipIfPhantom();
+      skipIfPhantom1();
       deck.slide(2);
       obj = deck.parent.querySelector('object:not([data-reload])');
       whenSvgNodeAvailable(obj, function(svgNode) {
@@ -166,7 +169,7 @@ describe('bespoke-multimedia', function() {
     });
 
     it('should remove active class from SVG when slide is deactivated', function(done) {
-      skipIfPhantom();
+      skipIfPhantom1();
       deck.slide(3);
       obj = deck.parent.querySelector('object:not([data-reload])');
       whenSvgNodeAvailable(obj, function(svgNode) {
@@ -179,7 +182,7 @@ describe('bespoke-multimedia', function() {
     });
 
     it('should add active class to SVG on active slide as soon as SVG is available', function(done) {
-      skipIfPhantom();
+      skipIfPhantom1();
       deck.slide(2);
       obj = deck.parent.querySelector('object:not([data-reload])');
       // NOTE force a reload in this click
