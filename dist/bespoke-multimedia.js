@@ -1,5 +1,5 @@
 /*!
- * bespoke-multimedia v1.0.4-dev
+ * bespoke-multimedia v1.1.0-dev
  *
  * Copyright 2016, Dan Allen
  * This content is released under the MIT license
@@ -14,7 +14,7 @@ module.exports = function() {
       play = function(obj) {
         var rew = obj.hasAttribute('data-rewind'), vol = Math.min(Math.max(parseFloat(obj.getAttribute('data-volume')), 0), 10);
         if (obj.play) {
-          if (rew) obj.currentTime = 0;
+          if (rew && obj.readyState) obj.currentTime = 0;
           if (vol >= 0) obj.volume = vol/10;
           obj.play();
         }
