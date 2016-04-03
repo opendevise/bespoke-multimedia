@@ -206,6 +206,32 @@ describe('bespoke-multimedia', function() {
       }
     });
 
+    it('should not add active class to SVG if it loads after slide change', function(done) {
+      skipIfPhantom1();
+      deck.slide(2);
+      obj = deck.parent.querySelector('object:not([data-reload])');
+      // NOTE force a reload in this click
+      obj.data = obj.getAttribute('data');
+      deck.next();
+      deck.prev();
+      var svgNode = null;
+      try {
+        svgNode = obj.contentDocument.rootElement;
+      }
+      catch (e) {}
+      // test only relevant if svgNode is null here
+      if (!svgNode) {
+        whenSvgNodeAvailable(obj, function(svgNode) {
+          expect(svgNode.nodeName).toBe('svg');
+          expect(svgNode.getAttribute('class')).toBeFalsy();
+          done();
+        });
+      }
+      else {
+        done();
+      }
+    });
+
     it('should reload SVG when slide is activated', function(done) {
       skipIfPhantom();
       deck.slide(2);
