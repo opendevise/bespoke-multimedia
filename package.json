@@ -1,6 +1,6 @@
 {
   "name": "bespoke-multimedia",
-  "version": "1.1.0",
+  "version": "1.1.1-dev",
   "description": "Toggles video playback and restarts animations (SVG, GIF) on active slide in a Bespoke.js presentation.",
   "homepage": "https://github.com/opendevise/bespoke-multimedia",
   "bugs": "https://github.com/opendevise/bespoke-multimedia/issues",

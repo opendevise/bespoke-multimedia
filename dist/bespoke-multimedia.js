@@ -1,5 +1,5 @@
 /*!
- * bespoke-multimedia v1.1.0
+ * bespoke-multimedia v1.1.1-dev
  *
  * Copyright 2016, Dan Allen
  * This content is released under the MIT license

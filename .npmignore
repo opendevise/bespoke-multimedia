@@ -3,6 +3,7 @@
 /.jshintrc
 /.npmignore
 /.travis.yml
+/CONTRIBUTING-CODE.adoc
 /WORKLOG.adoc
 /package-README.md
 /demo/
