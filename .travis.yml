@@ -1,4 +1,10 @@
+sudo: false
+git:
+  depth: 1
 language: node_js
 node_js:
   - '0.10'
-before_install: npm -g install npm@latest
+before_install:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - npm -g install npm@latest

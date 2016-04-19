@@ -46,10 +46,8 @@ module.exports = function(config) {
       }
     },
 
-    //browsers: ['PhantomJS']
-    browsers: ['PhantomJS_16x9']
-    //browsers: ['Firefox']
-    //browsers: ['Chrome']
-    //browsers: ['PhantomJS_16x9', 'Firefox', 'Chrome']
+    // execute `BROWSERS=all xvfb-run gulp test` to run tests in all browsers using background display
+    browsers: process.env.TRAVIS ? ['PhantomJS_16x9', 'Firefox'] :
+      (process.env.BROWSERS === 'all' ? ['PhantomJS_16x9', 'Firefox', 'Chrome'] : ['PhantomJS_16x9'])
   });
 };
